@@ -16,9 +16,16 @@ docker build -t resume-website .
 docker run -d -p 80:80 --name resume-website resume-website
 
 # Check if the website is accessible (validation )
-status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://localhost)
-if [[ $status_code -ne 200 ]]; then
-    echo "Website is not accessible. Exiting."
-    docker stop resume-website
-    exit 1
-fi
+# status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://localhost)
+# if [[ $status_code -ne 200 ]]; then
+#     echo "Website is not accessible. Exiting."
+#     docker stop resume-website
+#     exit 1
+# fi
+if curl --output /dev/null --silent --head --fail http://localhost; then
+                                echo "Website is accessible."
+                            else
+                                echo "Website is not accessible. Exiting."
+                                docker stop resume-website
+                                exit 1
+                            fi
