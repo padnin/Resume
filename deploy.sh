@@ -13,7 +13,7 @@ docker stop resume-website || true && docker rm resume-website || true
 docker build -t resume-website .
 
 # Run the Docker container (Deploy)
-docker run -d -p 80:80 --name resume-website resume-website
+docker run -d -p 8081:80 --name resume-website resume-website
 
 # Check if the website is accessible (validation )
 # status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://localhost)
