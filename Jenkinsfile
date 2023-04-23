@@ -7,14 +7,14 @@ pipeline {
                 git branch: 'main', credentialsId: 'git-jenkins-PAT', url: 'https://github.com/padnin/Resume.git'
             }
         }
-        stage('Build') {
+        stage('Build, Deploy & Validate') {
             steps {
                 script {
                     try {
                         sh './deploy.sh'
                     } catch (Exception e) {
                         currentBuild.result = "FAILURE"
-                        throw e
+                        throw e 
                     }
                 }
             }
