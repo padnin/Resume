@@ -7,13 +7,13 @@ chmod +x $0
 chown $(whoami) $0
 
 # Stop and remove any existing containers
-docker stop resume-website || true && docker rm resume-website || true
+docker stop resume-hosting || true && docker rm resume-hosting || true
 
 # Build the Docker image (Build)
-docker build -t resume-website .
+docker build -t resume-hosting .
 
 # Run the Docker container (Deploy)
-docker run -d -p 8081:80 --name resume-website resume-website
+docker run -d -p 8081:80 --name resume-hosting resume-hosting
 
 # Check if the website is accessible (validation )
 # status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://localhost)
