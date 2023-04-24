@@ -52,7 +52,7 @@ Once the webhook is set up, the Jenkins pipeline will be triggered automatically
 
 - The Jenkins server is responsible for running the pipeline. The pipeline is defined in the Jenkinsfile, which contains the stages and steps required to build and deploy the web application. The pipeline is triggered automatically by the webhook when a new commit is made to the repository.
 
-- The first stage of the pipeline is the checkout stage, which checks out the source code from the GitHub repository. The second stage is the build stage, which builds a Docker image using the deploy.sh script. The script sets execute permissions, changes ownership, and then stops and removes any existing containers before building the Docker image. Once the image is built, the script runs a container using the image.
+- The first stage of the pipeline is the checkout stage, which checks out the source code from the GitHub repository. The second stage is the build, deploy and validation stages together which uses the deploy.sh script to build a Docker image, deploy and validate . The script sets execute permissions, changes ownership, and then stops and removes any existing containers before building the Docker image. Once the image is built, the script runs a container using the image.
 
 - The Docker image is defined in the Dockerfile. The Dockerfile specifies the base image, which in this case is the latest version of Nginx. It also copies the index.html file to the appropriate directory, exposes port 8081, and starts the Nginx server.
 
@@ -129,7 +129,49 @@ This document describes the steps required to automate the stand up of a webserv
 
 ### Pre-requisites
 - A Jenkins server running on a Linux machine
+    Jenkins can be installed on the amazon Linux server following the instructions from this official documentation https://www.jenkins.io/doc/book/installing/linux/
+        ```
+        sudo wget -O /etc/yum.repos.d/jenkins.repo \
+        https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        ```
+        ```
+        sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+        ```
+        ```
+        sudo yum upgrade
+        ```
+        Add required dependencies for the jenkins package
+        ```
+        sudo yum install java-11-openjdk
+        ```
+        ```
+        sudo yum install jenkins
+        ```
+(**Note: Beginning with Jenkins 2.357 and the forthcoming 2.361.1 LTS release, Jenkins requires Java 11 or newer. )
 - Docker installed on the Jenkins server
+    Docker can be installed on the ammazon Linux server by running the following commands
+                ```
+                    sudo yum update 
+                    ```
+                    ```
+                    sudo yum install docker -y
+                    ```
+     start the docker service
+                ```
+                systemctl start docker
+                ```
+    Check the status if docker is running
+            ```
+                systemctl status docker
+                ```
+   To enable auto-start of the docker service 
+            ```
+                systemctl enable docker
+                ```
+Create a jenkins user and add to the Docker group to grant the jenkins user permission to interact with the Docker daemon
+        ```
+        sudo usermod -aG docker jenkins
+        
 ### Configuration
 1. Install the necessary Jenkins plugins:
 - Docker Pipeline plugin
@@ -146,7 +188,8 @@ The pipeline performs the following steps:
 #### Checkout
 This stage checks out the code from the Git repository using the git command.
 
-  stage('checkout') {
+
+    stage('checkout') {
             steps {
                 git branch: 'main', credentialsId: 'git-jenkins-PAT', url: 'https://github.com/padnin/Resume.git'
             }
