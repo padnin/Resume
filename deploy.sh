@@ -13,7 +13,7 @@ docker stop resume-hosting || true && docker rm resume-hosting || true
 docker build -t resume-hosting .
 
 # Run the Docker container (Deploy)
-docker run -d -p 8081:80 --name resume-hosting resume-hosting
+docker run -d -p 8082:80 --name resume-hosting resume-hosting
 
 # Check if the website is accessible (validation )
 
