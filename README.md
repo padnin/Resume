@@ -27,7 +27,7 @@ The Dockerfile defines the Docker image used in the pipeline. It uses the latest
 
 #### Validation
 
-After the Docker container is started, the pipeline runs a validation step to ensure that the website is accessible. The step uses the curl command to check if the website is accessible at http://localhost. If the website is not accessible, the pipeline stops the container and exits with an error.
+After the Docker container is started, the pipeline runs a validation step to ensure that the website is accessible. The step uses the curl command to check if the website is accessible at http://localhost:8081. If the website is not accessible, the pipeline stops the container and exits with an error.
 
 #### Webhook
 
@@ -56,7 +56,7 @@ Once the webhook is set up, the Jenkins pipeline will be triggered automatically
 
 - The Docker image is defined in the Dockerfile. The Dockerfile specifies the base image, which in this case is the latest version of Nginx. It also copies the index.html file to the appropriate directory, exposes port 8081, and starts the Nginx server.
 
-- The final stage of the pipeline is the validation stage, which ensures that the website is accessible. The pipeline uses the curl command to check if the website is accessible at http://localhost. If the website is not accessible, the pipeline stops the container and exits with an error.
+- The final stage of the pipeline is the validation stage, which ensures that the website is accessible. The pipeline uses the curl command to check if the website is accessible at http://localhost:8081. If the website is not accessible, the pipeline stops the container and exits with an error.
 
 Overall, this pipeline automates the process of building and deploying the web application by integrating the GitHub repository, Jenkins server, Docker, and the web application itself. This automated process reduces the risk of human errors and ensures that the web application is deployed consistently and reliably. 
 
@@ -199,7 +199,7 @@ This stage checks out the code from the Git repository using the git command.
 
 #### Build, Deploy and Validation
 
-This stage performs build, deploy and validation using a deploy.sh script. This script sets execute permissions, changes ownership, and then stops and removes any existing containers before building the Docker image. Once the image is built, the script runs a container using the image and then validates to ensure that the website is accessible. The step uses the curl command to check if the website is accessible at http://localhost. If the website is not accessible, the pipeline stops the container and exits with an error.
+This stage performs build, deploy and validation using a deploy.sh script. This script sets execute permissions, changes ownership, and then stops and removes any existing containers before building the Docker image. Once the image is built, the script runs a container using the image and then validates to ensure that the website is accessible. The step uses the curl command to check if the website is accessible at http://localhost:8081. If the website is not accessible, the pipeline stops the container and exits with an error.
 
 
     stage('Build, Deploy & Validate') {
