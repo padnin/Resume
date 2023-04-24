@@ -130,7 +130,8 @@ This document describes the steps required to automate the stand up of a webserv
 ### Pre-requisites
 - A Jenkins server running on a Linux machine
     Jenkins can be installed on the amazon Linux server following the instructions from this official documentation https://www.jenkins.io/doc/book/installing/linux/
-        ```
+
+      ```
         sudo wget -O /etc/yum.repos.d/jenkins.repo \
         https://pkg.jenkins.io/redhat-stable/jenkins.repo
         ```
@@ -150,13 +151,14 @@ This document describes the steps required to automate the stand up of a webserv
 (**Note: Beginning with Jenkins 2.357 and the forthcoming 2.361.1 LTS release, Jenkins requires Java 11 or newer. )
 - Docker installed on the Jenkins server
     Docker can be installed on the ammazon Linux server by running the following commands
+
                 ```
                     sudo yum update 
                     ```
                     ```
                     sudo yum install docker -y
                     ```
-     start the docker service
+    Start the docker service
                 ```
                 systemctl start docker
                 ```
@@ -164,14 +166,15 @@ This document describes the steps required to automate the stand up of a webserv
             ```
                 systemctl status docker
                 ```
-   To enable auto-start of the docker service 
+    To enable auto-start of the docker service 
             ```
                 systemctl enable docker
                 ```
 Create a jenkins user and add to the Docker group to grant the jenkins user permission to interact with the Docker daemon
         ```
         sudo usermod -aG docker jenkins
-        
+        ```
+
 ### Configuration
 1. Install the necessary Jenkins plugins:
 - Docker Pipeline plugin
