@@ -131,30 +131,30 @@ This document describes the steps required to automate the stand up of a webserv
 - A Jenkins server running on a Linux machine
     Jenkins can be installed on the amazon Linux server following the instructions from this official documentation https://www.jenkins.io/doc/book/installing/linux/
 
-      ```
-        sudo wget -O /etc/yum.repos.d/jenkins.repo \
-        https://pkg.jenkins.io/redhat-stable/jenkins.repo
+      
+                sudo wget -O /etc/yum.repos.d/jenkins.repo \
+                https://pkg.jenkins.io/redhat-stable/jenkins.repo
+                
+                
+                sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+            
+                sudo yum upgrade
+                
+                Add required dependencies for the jenkins package
+                
+                sudo yum install java-11-openjdk
+            
+                sudo yum install jenkins
         
-        
-        sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-       
-        sudo yum upgrade
-        
-        Add required dependencies for the jenkins package
-        
-        sudo yum install java-11-openjdk
-       
-        sudo yum install jenkins
-        ```
         
 (**Note: Beginning with Jenkins 2.357 and the forthcoming 2.361.1 LTS release, Jenkins requires Java 11 or newer. )
 - Docker installed on the Jenkins server
     Docker can be installed on the ammazon Linux server by running the following commands
 
-                ```
-                    sudo yum update 
-                    
-                    sudo yum install docker -y
+                
+                sudo yum update 
+                
+                sudo yum install docker -y
                     
     Start the docker service
                 
@@ -171,7 +171,7 @@ This document describes the steps required to automate the stand up of a webserv
     Create a jenkins user and add to the Docker group to grant the jenkins user permission to interact with the Docker daemon
         
                 sudo usermod -aG docker jenkins
-                ```
+                
         
 
 ### Configuration
