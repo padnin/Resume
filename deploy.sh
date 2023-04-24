@@ -17,7 +17,7 @@ docker run -d -p 8082:80 --name resume-hosting resume-hosting
 
 # Check if the website is accessible (validation )
 
-if curl --output /dev/null --silent --head --fail http://localhost; then
+if curl --output /dev/null --silent --head --fail http://localhost:8082; then
                                 echo "Website is accessible."
                             else
                                 echo "Website is not accessible. Exiting."
