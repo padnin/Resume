@@ -63,7 +63,7 @@ Overall, this pipeline automates the process of building and deploying the web a
 
 ## Flowchart that illustrates the process:
 
-
+```
 +------------------+                     +---------------------+                     
 |  GitHub          |                     | Jenkins             |                     
 |  Repository      |                     | Pipeline            |                     
@@ -116,7 +116,7 @@ Overall, this pipeline automates the process of building and deploying the web a
 |  Repository      |                     | Pipeline            |                     
 +------------------+                     +---------------------+                     
 
-
+```
 
 - This flowchart shows the various steps involved in the pipeline, including pushing a commit to the GitHub repository, triggering the Jenkins pipeline through a webhook, checking out the code from the repository, building a Docker image using the deploy.sh script, deploying the Docker image to a container, validating that the website is accessible, and exiting the pipeline with success or error.
 
@@ -128,8 +128,8 @@ Overall, this pipeline automates the process of building and deploying the web a
 This document describes the steps required to automate the stand up of a webserver using a Jenkins pipeline and Docker.
 
 ### Pre-requisites
-A Jenkins server running on a Linux machine
-Docker installed on the Jenkins server
+- A Jenkins server running on a Linux machine
+- Docker installed on the Jenkins server
 ### Configuration
 1. Install the necessary Jenkins plugins:
 - Docker Pipeline plugin
@@ -145,15 +145,19 @@ Docker installed on the Jenkins server
 The pipeline performs the following steps:
 #### Checkout
 This stage checks out the code from the Git repository using the git command.
+
   stage('checkout') {
             steps {
                 git branch: 'main', credentialsId: 'git-jenkins-PAT', url: 'https://github.com/padnin/Resume.git'
             }
         }
+
 #### Build, Deploy and Validation
 
 This stage performs build, deploy and validation using a deploy.sh script. This script sets execute permissions, changes ownership, and then stops and removes any existing containers before building the Docker image. Once the image is built, the script runs a container using the image and then validates to ensure that the website is accessible. The step uses the curl command to check if the website is accessible at http://localhost. If the website is not accessible, the pipeline stops the container and exits with an error.
-stage('Build, Deploy & Validate') {
+
+
+    stage('Build, Deploy & Validate') {
             steps {
                 script {
                     try {
@@ -165,6 +169,7 @@ stage('Build, Deploy & Validate') {
                 }
             }
         }
+
 Catch and throw blocks are used in each stage of this pipeline to handle errors and exceptions that may occur during the pipeline execution, also to have a better control on the flow of pipeline, handle errors and exceptions gracefully, and provide meaningful feedback to the user.
 
 ### Conclusion
